@@ -1,6 +1,6 @@
 {
-  "name": "@styled-jsx/plugin-sass",
-  "version": "0.0.0-development",
+  "name": "@styled-jsx/plugin-sass-updated",
+  "version": "0.0.1-development",
   "description": "Plugin to add Sass support to styled-jsx.",
   "license": "MIT",
   "main": "index.js",
@@ -21,12 +21,12 @@
   "author": "Marton Lederer",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Thream/styled-jsx-plugin-sass.git"
+    "url": "https://github.com/teguhrianto/styled-jsx-plugin-sass.git"
   },
   "bugs": {
-    "url": "https://github.com/Thream/styled-jsx-plugin-sass/issues"
+    "url": "https://github.com/teguhrianto/styled-jsx-plugin-sass/issues"
   },
-  "homepage": "https://github.com/Thream/styled-jsx-plugin-sass#readme",
+  "homepage": "https://github.com/teguhrianto/styled-jsx-plugin-sass#readme",
   "standard": {
     "envs": [
       "node",
@@ -40,7 +40,7 @@
     "lint:commit": "commitlint",
     "lint:editorconfig": "editorconfig-checker",
     "lint:markdown": "markdownlint-cli2",
-    "lint:javascript": "standard",
+    "lint:javascript": "standard --fix",
     "release": "semantic-release",
     "test": "mocha test.js",
     "postinstall": "husky install",
@@ -51,16 +51,16 @@
     "strip-indent": "3.0.0"
   },
   "devDependencies": {
-    "@types/node": "20.3.3",
     "@commitlint/cli": "17.6.6",
     "@commitlint/config-conventional": "17.6.6",
+    "@types/node": "20.3.3",
     "editorconfig-checker": "5.1.1",
     "husky": "8.0.3",
     "markdownlint-cli2": "0.8.1",
     "markdownlint-rule-relative-links": "2.1.0",
     "mocha": "10.2.0",
     "pinst": "3.0.0",
-    "sass": "1.63.6",
+    "sass": "1.87.0",
     "semantic-release": "21.0.6",
     "standard": "17.1.0"
   },

@@ -3,16 +3,17 @@ const fs = require('node:fs')
 
 const stripIndent = require('strip-indent')
 const plugin = require('./index.js')
+const path = require('path')
 
 const cleanup = (str) => stripIndent(str).trim()
 
 describe('styled-jsx-plugin-sass', () => {
   it('applies plugins', () => {
     assert.strictEqual(
-      plugin('p { img { display: block} color: color(red a(90%)) }', {}).trim(),
+      plugin('p { img { display: block} color: rgba(red, 0.9) }', {}).trim(),
       cleanup(`
         p {
-          color: color(red a(90%));
+          color: rgba(255, 0, 0, 0.9);
         }
         p img {
           display: block;
@@ -208,9 +209,17 @@ describe('styled-jsx-plugin-sass', () => {
     )
   })
 
-  it('works with @import', () => {
+  it('works with @use', () => {
+    const filename = path.resolve(__dirname, 'fixtures', 'fixture.scss')
+    const file = fs.readFileSync(filename)
+
     assert.strictEqual(
-      plugin('@import "fixtures/fixture"; p { color: red }', {}).trim(),
+      plugin(file.toString() + 'p { color: red }', {
+        babel: { filename },
+        sassOptions: {
+          includePaths: [path.resolve(__dirname, 'fixtures')]
+        }
+      }).trim(),
       cleanup(`
         div {
           color: red;
@@ -223,12 +232,17 @@ describe('styled-jsx-plugin-sass', () => {
     )
   })
 
-  it('works with relative @import', () => {
-    const filename = 'fixtures/entry.scss'
+  it('works with relative @use', () => {
+    const filename = path.resolve(__dirname, 'fixtures', 'entry.scss')
     const file = fs.readFileSync(filename)
 
     assert.strictEqual(
-      plugin(file.toString(), { babel: { filename } }).trim(),
+      plugin(file.toString(), {
+        babel: { filename },
+        sassOptions: {
+          includePaths: [path.resolve(__dirname, 'fixtures')]
+        }
+      }).trim(),
       cleanup(`
         * {
           font-family: "Comic Sans MS" !important;
@@ -250,7 +264,7 @@ describe('styled-jsx-plugin-sass', () => {
       }).trim(),
       cleanup(`
         div {
-            padding: 1em;
+          padding: 1em;
         }
       `)
     )
@@ -258,7 +272,7 @@ describe('styled-jsx-plugin-sass', () => {
 
   it('works with indentedSyntax', () => {
     assert.strictEqual(
-      plugin('body\n\tdisplay: block\n\tmargin: 0', {
+      plugin('body{\n\tdisplay: block;\n\tmargin: 0;}', {
         sassOptions: {
           indentedSyntax: true
         }
@@ -276,9 +290,10 @@ describe('styled-jsx-plugin-sass', () => {
     assert.strictEqual(
       plugin(
         `
-          body
-            display: block
-            margin: 0
+          body {
+            display: block;
+            margin: 0;
+          }
       `,
         {
           sassOptions: {
@@ -299,14 +314,15 @@ describe('styled-jsx-plugin-sass', () => {
     assert.strictEqual(
       plugin(
         `
-          div
-            display: block
-            color: $test-color
+          div {
+            display: block;
+            color: $test-color;
+          }
       `,
         {
           sassOptions: {
             indentedSyntax: true,
-            data: '$test-color: #ff0000'
+            data: '$test-color: #ff0000;'
           }
         }
       ).trim(),

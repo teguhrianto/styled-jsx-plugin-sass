@@ -1,5 +1,4 @@
-@import './import-target.scss';
-
+@use "./import-target.scss" as *;
 p {
   color: red;
 }
