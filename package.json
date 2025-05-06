@@ -1,15 +1,11 @@
 {
-  "name": "@styled-jsx/plugin-sass-updated",
-  "version": "0.0.1-development",
+  "name": "styled-jsx-plugin-sass-dart",
+  "version": "0.0.1",
   "description": "Plugin to add Sass support to styled-jsx.",
   "license": "MIT",
   "main": "index.js",
   "engines": {
     "node": ">=12.0.0"
-  },
-  "publishConfig": {
-    "access": "public",
-    "provenance": true
   },
   "keywords": [
     "styled-jsx-plugin",
@@ -21,7 +17,7 @@
   "author": "Marton Lederer",
   "repository": {
     "type": "git",
-    "url": "https://github.com/teguhrianto/styled-jsx-plugin-sass.git"
+    "url": "git+https://github.com/teguhrianto/styled-jsx-plugin-sass.git"
   },
   "bugs": {
     "url": "https://github.com/teguhrianto/styled-jsx-plugin-sass/issues"
